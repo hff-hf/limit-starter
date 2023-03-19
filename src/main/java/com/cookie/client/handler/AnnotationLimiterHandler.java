@@ -29,7 +29,7 @@ public class AnnotationLimiterHandler extends AbstractLimiterHandler<Object> {
         String className = methodSignature.getDeclaringType().getName();
         String methodName = methodSignature.getMethod().getName();
         String defaultKet = StringUtils.join(className, ":", methodName);
-        // 构建限流规则
+        // 构建限流规则--
         LimitRule limitRule = LimitRule.builder()
                 .defaultKey(defaultKet)
                 .prefix(limit.prefix())
