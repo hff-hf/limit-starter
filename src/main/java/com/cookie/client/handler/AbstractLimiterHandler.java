@@ -4,6 +4,7 @@ import com.cookie.client.config.LimitRule;
 import com.cookie.client.enums.FallbackStrategy;
 import com.cookie.client.enums.LimitType;
 import com.cookie.client.inter.RateLimiter;
+import com.cookie.client.util.WebUtil;
 import com.cookie.constants.RuleConstant;
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
@@ -51,11 +52,10 @@ public abstract class AbstractLimiterHandler<T> {
         // 使用switch方便后续扩展
         switch (limitRule.getLimitType()) {
             case IP:
-                // 工具类 获取Ip -- TODO
-                cacheKey = "Ip";
+                cacheKey = StringUtils.join(limitRule.getPrefix(), ":", WebUtil.remoteIp());
                 break;
             default:
-                cacheKey = StringUtils.isBlank(limitRule.getCacheKey()) ? limitRule.getDefaultKey() : limitRule.getCacheKey();
+                cacheKey = StringUtils.join(limitRule.getPrefix(), ":", StringUtils.isBlank(limitRule.getCacheKey()) ? limitRule.getDefaultKey() : limitRule.getCacheKey());
         }
         limitRule.setCacheKey(cacheKey);
     }

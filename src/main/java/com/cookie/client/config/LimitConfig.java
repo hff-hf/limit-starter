@@ -25,7 +25,7 @@ public class LimitConfig {
      */
     private String pointCut = "";
 
-    @NestedConfigurationProperty
+    @NestedConfigurationProperty //给使用配置文件用的
     private LimitRule limitRule = new LimitRule().init();
 
     /**

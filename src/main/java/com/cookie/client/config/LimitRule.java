@@ -30,6 +30,9 @@ public class LimitRule {
 
     private int count;
 
+    /**
+     * 周期 单位 秒
+     */
     private long period;
 
     private TimeUnit unit;
@@ -43,13 +46,8 @@ public class LimitRule {
      * 加载默认值
      */
     public LimitRule init() {
-        this.setPrefix(RuleConstant.DEFAULT_PREFIX);
-        this.setCacheKey("");
         this.setCount(RuleConstant.DEFAULT_COUNT);
         this.setPeriod(RuleConstant.DEFAULT_PERIOD);
-        this.setUnit(RuleConstant.DEFAULT_UNIT);
-        this.setLimitType(LimitType.IP);
-        this.setFallbackStrategy(FallbackStrategy.FAST_FALL);
         return this;
     }
 }
