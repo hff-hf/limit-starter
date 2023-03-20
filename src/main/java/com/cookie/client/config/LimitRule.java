@@ -22,6 +22,9 @@ import java.util.concurrent.TimeUnit;
 @NoArgsConstructor
 public class LimitRule {
 
+    /**
+     * 默认是类名+方法名
+     */
     private String defaultKey;
 
     private String prefix;
@@ -46,8 +49,12 @@ public class LimitRule {
      * 加载默认值
      */
     public LimitRule init() {
+        this.setPrefix(RuleConstant.DEFAULT_PREFIX);
         this.setCount(RuleConstant.DEFAULT_COUNT);
         this.setPeriod(RuleConstant.DEFAULT_PERIOD);
+        this.setUnit(TimeUnit.SECONDS);
+        this.setLimitType(LimitType.CUSTOMER);
+        this.setFallbackStrategy(FallbackStrategy.FAST_FALL);
         return this;
     }
 }

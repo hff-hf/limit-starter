@@ -6,6 +6,8 @@ import com.cookie.constants.RuleConstant;
 import com.google.common.collect.ImmutableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -13,7 +15,6 @@ import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.util.StreamUtils;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -31,7 +32,8 @@ public abstract class AbstractRateLimiter implements RateLimiter {
 
     protected RedisScript<Long> redisScript;
 
-    @Resource(name = "limitRedis")
+    @Autowired
+    @Qualifier(value = "limitRedis")
     protected RedisTemplate<String, Serializable> limitRedisTemplate;
 
     @Override

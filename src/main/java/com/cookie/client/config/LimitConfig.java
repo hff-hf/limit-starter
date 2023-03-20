@@ -21,7 +21,7 @@ public class LimitConfig {
     private boolean enabled = RuleConstant.DEFAULT_ENABLE;
 
     /**
-     * 加载切点（带实现）
+     * 加载切点
      */
     private String pointCut = "";
 
