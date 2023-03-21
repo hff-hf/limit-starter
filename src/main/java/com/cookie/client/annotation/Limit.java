@@ -4,7 +4,6 @@ import com.cookie.client.enums.FallbackStrategy;
 import com.cookie.client.enums.LimitType;
 import com.cookie.constants.RuleConstant;
 
-import java.util.concurrent.TimeUnit;
 
 /**
  * 限流注解
@@ -34,7 +33,7 @@ public @interface Limit {
     int count() default RuleConstant.DEFAULT_COUNT;
 
     /**
-     * 周期
+     * 周期 单位 秒
      */
     long period() default RuleConstant.DEFAULT_PERIOD;
 

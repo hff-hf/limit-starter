@@ -21,7 +21,7 @@ import java.io.Serializable;
 public class LimiterRedisConfig {
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-    @Bean("limitRedis")
+    @Bean(name = "limitRedis")
     public RedisTemplate<String, Serializable> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Serializable> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);

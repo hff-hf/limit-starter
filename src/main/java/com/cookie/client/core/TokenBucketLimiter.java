@@ -16,7 +16,7 @@ public class TokenBucketLimiter extends AbstractRateLimiter {
     @Override
     protected boolean acquire(ImmutableList<String> keys, int limitCount, long limitPeriod, TimeUnit timeUnit) {
         return Optional
-                .ofNullable(limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod, timeUnit))
+                .ofNullable(limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod))
                 .map(res -> res == 1)
                 .orElse(false);
     }
