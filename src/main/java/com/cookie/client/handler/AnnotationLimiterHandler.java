@@ -2,7 +2,6 @@ package com.cookie.client.handler;
 
 import com.cookie.client.annotation.Limit;
 import com.cookie.client.config.LimitRule;
-import com.cookie.client.exception.LimitException;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -43,9 +42,9 @@ public class AnnotationLimiterHandler extends AbstractLimiterHandler<Object> {
             try {
                 return joinPoint.proceed();
             } catch (Throwable e) {
-                LOGGER.error("目标服务执行异常");
-                throw new LimitException(e);
+                LOGGER.error("[ConfigLimitHandler限流交易请求],目标方法执行失败 :{}", e.getMessage());
             }
+            return null;
         });
     }
 }
