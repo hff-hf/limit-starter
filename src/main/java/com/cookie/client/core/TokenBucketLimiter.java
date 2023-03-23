@@ -3,7 +3,6 @@ package com.cookie.client.core;
 import com.google.common.collect.ImmutableList;
 
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 令牌桶限流
@@ -14,15 +13,15 @@ import java.util.concurrent.TimeUnit;
 public class TokenBucketLimiter extends AbstractRateLimiter {
 
     @Override
-    protected boolean acquire(ImmutableList<String> keys, int limitCount, long limitPeriod, TimeUnit timeUnit) {
+    protected boolean acquire(ImmutableList<String> keys, long nowTime, int limitCount, long limitPeriod) {
         return Optional
-                .ofNullable(limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod))
-                .map(res -> res == 1)
+                .ofNullable(limitRedisTemplate.execute(redisScript, keys, nowTime, limitCount, limitPeriod))
+                .map(res -> res >= 0)
                 .orElse(false);
     }
 
     @Override
     protected String loadLuaScript() {
-        return "classpath:/script/TokenBucket.lua";
+        return "classpath:/script.Customer";
     }
 }

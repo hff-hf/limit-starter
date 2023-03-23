@@ -46,7 +46,7 @@ public abstract class AbstractLimiterHandler<T> {
     private void buildLimitRule(LimitRule limitRule) {
         limitRule.setPrefix(StringUtils.isBlank(limitRule.getPrefix()) ? limitConfig.getLimitRule().getPrefix() : limitRule.getPrefix());
         limitRule.setCount(limitRule.getCount() < 1 ? limitConfig.getLimitRule().getCount() : limitRule.getCount());
-        limitRule.setPeriod(limitRule.getPeriod() < 1 ? limitConfig.getLimitRule().getPeriod() : limitConfig.getLimitRule().getUnit().toSeconds(limitRule.getPeriod()));
+        limitRule.setPeriod(limitRule.getPeriod() < 1 ? 1000L : limitRule.getUnit().toMillis(limitRule.getPeriod()));
         limitRule.setLimitType(Optional.ofNullable(limitRule.getLimitType()).orElse(limitConfig.getLimitRule().getLimitType()));
         limitRule.setFallbackStrategy(Optional.ofNullable(limitRule.getFallbackStrategy()).orElse(limitConfig.getLimitRule().getFallbackStrategy()));
         String cacheKey;
@@ -56,7 +56,7 @@ public abstract class AbstractLimiterHandler<T> {
                 cacheKey = StringUtils.join(limitRule.getPrefix(), ":", WebUtil.remoteIp());
                 break;
             default:
-                cacheKey = StringUtils.join(limitRule.getPrefix(), ":", StringUtils.isBlank(limitRule.getCacheKey()) ? limitRule.getDefaultKey() : limitRule.getCacheKey());
+                cacheKey = StringUtils.join(limitRule.getPrefix(), ":", StringUtils.isBlank(limitRule.getCacheKey()) ? limitConfig.getLimitRule().getDefaultKey() : limitRule.getCacheKey());
         }
         limitRule.setCacheKey(cacheKey);
     }
