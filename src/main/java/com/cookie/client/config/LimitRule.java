@@ -34,7 +34,7 @@ public class LimitRule {
     private int count;
 
     /**
-     * 周期 单位 秒
+     * 周期 单位 毫秒
      */
     private long period;
 

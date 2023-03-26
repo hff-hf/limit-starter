@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 限流器抽象类
@@ -38,28 +37,28 @@ public abstract class AbstractRateLimiter implements RateLimiter {
 
     @Override
     public boolean tryAcquire(ImmutableList<String> keys, int count) {
-        return tryAcquire(keys, count, RuleConstant.DEFAULT_PERIOD);
+        return tryAcquire(keys, count, RuleConstant.DEFAULT_COUNT);
     }
 
     @Override
     public boolean tryAcquire(ImmutableList<String> keys, int count, long period) {
-        return tryAcquire(keys, count, period, RuleConstant.DEFAULT_UNIT);
+        return tryAcquire(keys, System.currentTimeMillis(), count, period);
     }
 
     @Override
-    public boolean tryAcquire(ImmutableList<String> keys, int count, long period, TimeUnit unit) {
-        return acquire(keys, count, period, unit);
+    public boolean tryAcquire(ImmutableList<String> keys, long nowTime, int count, long period) {
+        return acquire(keys, nowTime, count, period);
     }
 
     /**
      * 具体限流实现
      * @param keys keys
+     * @param nowTime nowTime
      * @param limitCount limitCount
      * @param limitPeriod limitPeriod
-     * @param timeUnit timeUnit
      * @return 是否通过
      */
-    protected abstract boolean acquire(ImmutableList<String> keys, int limitCount, long limitPeriod, TimeUnit timeUnit);
+    protected abstract boolean acquire(ImmutableList<String> keys, long nowTime, int limitCount, long limitPeriod);
 
     /**
      * 自类实现
