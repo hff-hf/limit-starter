@@ -2,6 +2,7 @@ package com.cookie.client.handler;
 
 import com.cookie.client.config.LimitConfig;
 import com.cookie.client.config.LimitRule;
+import com.cookie.client.core.DefaultFallback;
 import com.cookie.client.inter.RateLimiter;
 import com.cookie.client.util.WebUtil;
 import com.google.common.collect.ImmutableList;
@@ -10,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -37,10 +37,7 @@ public abstract class AbstractLimiterHandler<T> {
             return function.get();
         }
         LOGGER.info("获取令牌失败，开始执行服务降级策略.....");
-        // 目前只有快速失败
-        HashMap<String, String> map = new HashMap<>();
-        map.put("500", "操作太频繁");
-        return map;
+        return new DefaultFallback().getFallback();
     }
 
     private void buildLimitRule(LimitRule limitRule) {

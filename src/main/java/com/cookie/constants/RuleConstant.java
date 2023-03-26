@@ -1,7 +1,5 @@
 package com.cookie.constants;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * 限流规则常量
  *
@@ -28,9 +26,4 @@ public class RuleConstant {
      * 默认周期为 1
      */
     public static final int DEFAULT_PERIOD = 1;
-
-    /**
-     * 一个周期单位默认为 秒
-     */
-    public static final TimeUnit DEFAULT_UNIT = TimeUnit.SECONDS;
 }

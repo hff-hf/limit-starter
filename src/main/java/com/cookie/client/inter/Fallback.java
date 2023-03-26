@@ -1,5 +1,6 @@
 package com.cookie.client.inter;
 
+
 /**
  * 服务降级策略接口
  *

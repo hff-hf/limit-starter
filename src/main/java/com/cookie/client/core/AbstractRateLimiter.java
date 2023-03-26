@@ -2,6 +2,7 @@ package com.cookie.client.core;
 
 import com.cookie.client.exception.LimitException;
 import com.cookie.client.inter.RateLimiter;
+import com.cookie.constants.RuleConstant;
 import com.google.common.collect.ImmutableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,7 @@ public abstract class AbstractRateLimiter implements RateLimiter {
 
     @Override
     public boolean tryAcquire(ImmutableList<String> keys, int count) {
-        return tryAcquire(keys, System.currentTimeMillis(), count, 1);
+        return tryAcquire(keys, count, RuleConstant.DEFAULT_COUNT);
     }
 
     @Override
