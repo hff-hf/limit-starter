@@ -21,11 +21,11 @@ public class LimitConfig {
     private boolean enabled = RuleConstant.DEFAULT_ENABLE;
 
     /**
-     * 加载切点（带实现）
+     * 加载切点
      */
     private String pointCut = "";
 
-    @NestedConfigurationProperty
+    @NestedConfigurationProperty //给使用配置文件用的---初始化默认值
     private LimitRule limitRule = new LimitRule().init();
 
     /**
